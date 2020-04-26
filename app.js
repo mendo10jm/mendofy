@@ -7,10 +7,10 @@ const app = express();
 
 // Conexión base de datos Local
 const mongoose = require('mongoose');
-//const uri = 'mongodb://localhost:27017/mendofydb';
+const uri = 'mongodb://localhost:27017/mendofydb';
 
 // Conexión base de datos nube
-const uri = 'mongodb+srv://mendo:75LzxKK7aL61cZ4z@mendofydb-xmlh4.mongodb.net/mendofydb?retryWrites=true&w=majority';
+//const uri = 'mongodb+srv://mendo:75LzxKK7aL61cZ4z@mendofydb-xmlh4.mongodb.net/mendofydb?retryWrites=true&w=majority';
 
 const options = {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true};
 
