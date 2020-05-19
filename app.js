@@ -34,7 +34,8 @@ app.use(express.urlencoded({ extended: true }));
   //res.send('Hello World!');
 //});
 
-app.use('/api',require('./routes/nota'));
+
+app.use('/api',require('./routes/cancion'));
 
 // Middleware para Vue.js router modo history
 const history = require('connect-history-api-fallback');
@@ -45,3 +46,4 @@ app.set('puerto', process.env.PORT || 3000);
 app.listen(app.get('puerto'), () => {
   console.log('Example app listening on port'+ app.get('puerto'));
 });
+
