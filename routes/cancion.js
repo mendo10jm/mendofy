@@ -19,6 +19,7 @@ router.post('/nueva-cancion', async (req, res) => {
   }
 });
 
+var baseUrl = "./public"
 // Get con todos los documentos
 router.get('/cancion', async (req, res) => {
 
@@ -32,7 +33,7 @@ router.get('/cancion', async (req, res) => {
     function getCAncion(c){
       return new Promise(function(resolve, reject){
 
-          jsmediatags.read(c.src, {     //leo el archivo mp3 y si no hay errores en tag se encuentra toda la información y extraigo la que necesito
+          jsmediatags.read(baseUrl + c.src, {     //leo el archivo mp3 y si no hay errores en tag se encuentra toda la información y extraigo la que necesito
             onSuccess: async function (tag) {
 
               var title = tag.tags.title;
@@ -105,63 +106,6 @@ router.delete('/cancion/:id', async (req, res) => {
     })
   }
 });
-
-/*
-// recibe del front una peticion con el id de la canción y devuelve la imagen de dicha canción en base64
-router.get('/cancion/:id', async (req, res) => {
-  const _id = req.params.id;
-  try {
-    const cancionDB = await Cancion.findOne({ _id }); //Busco la canción en la base de datos
-
-    if (typeof window === 'undefined') {
-      global.window = {}
-    }
-    //Inspeccionar Cación
-    var jsmediatags = require("jsmediatags");
-    var btoa = require('btoa'); //Codificador a base64
-
-    //paso la url de la cancion al modulo jsmediatags que detecta los metadatos mp3
-    jsmediatags.read(cancionDB.src, {
-      onSuccess: function (tag) {
-        var title = tag.tags.title;
-        var artist = tag.tags.artist;
-
-        var image = tag.tags.picture;
-
-        if (image) {
-          var base64String = "";
-          for (var i = 0; i < image.data.length; i++) {
-            base64String += String.fromCharCode(image.data[i]);
-          }
-          var base64 = 'data:' + image.format + ';base64,' + btoa(base64String); //añado la informacion para que html pueda mostrar la img 
-
-        } else {
-          console.log("No hay imagen");
-        }
-        var infoCancion = {
-          title: title,
-          artist: artist,
-          imagen: base64
-        };
-
-        res.send(infoCancion); // envio la información al front
-      },
-      onError: function (error) {
-        console.log(':(', error.type, error.info);
-      }
-    });
-
-
-  } catch (error) {
-    return res.status(400).json({
-      mensaje: 'Mierda',
-      error
-    })
-  }
-
-
-});
-*/
 
 // Exportamos la configuración de express app
 module.exports = router;
