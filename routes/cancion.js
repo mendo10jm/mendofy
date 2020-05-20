@@ -1,10 +1,10 @@
 import express from 'express';
 const router = express.Router();
 
-// importar el modelo nota
+// importar el modelo Cancion
 import Cancion from '../models/cancion';
 
-// Agregar una canción
+// Agregar una canción a la base de datos mongoDB
 router.post('/nueva-cancion', async (req, res) => {
   const body = req.body;
   try {
@@ -20,7 +20,7 @@ router.post('/nueva-cancion', async (req, res) => {
 });
 
 var baseUrl = "./public"
-// Get con todos los documentos
+// devulve todas las canciones 
 router.get('/cancion', async (req, res) => {
 
   var jsmediatags = require("jsmediatags"); //extractor de datos mp3
@@ -53,7 +53,7 @@ router.get('/cancion', async (req, res) => {
               } else {
                 console.log("No hay imagen");
               }
-              // actualizo los datos de la cancion que estaban en blanco en la base de datos
+              // actualizo los datos de la cancion que estaban en blanco en la base de datos y los relleno con sus datos segun los metadatos extraidos
               c.titulo = title;
               c.artista = artist;
               c.imagen = base64;
